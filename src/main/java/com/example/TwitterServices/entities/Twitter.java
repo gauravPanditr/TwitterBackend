@@ -9,15 +9,16 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Twitter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+      private String userId;
 
-    private String Content;
+    private String tweet;
 
 
 
