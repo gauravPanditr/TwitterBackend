@@ -1,9 +1,11 @@
 package com.example.TwitterServices.Controller;
 
-import com.example.TwitterServices.dto.TwitterCreateDTO;
-import com.example.TwitterServices.service.TwitterServices;
+import com.example.TwitterServices.dto.TwitterDTO;
+import com.example.TwitterServices.entities.Twitter;
+import com.example.TwitterServices.service.TwitterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,17 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TwitterController {
-
-    private final TwitterServices twitterServices;
+    private static final Logger logger = LoggerFactory.getLogger(TwitterController.class);
 
     @Autowired
-    public TwitterController(TwitterServices twitterServices) {
-        this.twitterServices = twitterServices;
-    }
+    private TwitterService twitterService;
 
     @PostMapping("/tweets")
-    public ResponseEntity<String> createTweet(@RequestBody TwitterCreateDTO tweetDTO, @RequestHeader("userId") String userId) {
-        twitterServices.createTwitter(tweetDTO, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Tweet created successfully");
+    public ResponseEntity<Twitter> createTweet(@RequestBody TwitterDTO twitterDTO, @RequestHeader("loggedInUserId") String loggedInUserId) {
+        Twitter tweet = twitterService.createTweet(twitterDTO, loggedInUserId);
+        return ResponseEntity.ok(tweet);
     }
 }

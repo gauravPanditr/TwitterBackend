@@ -1,20 +1,18 @@
 package com.example.TwitterServices.configuration;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Properties;
 
 @Configuration
 public class TwitterConfig {
-
 
 
     @Bean
@@ -53,6 +51,7 @@ public class TwitterConfig {
     KafkaTemplate<String, String> getKafkaTemplate(){
         return new KafkaTemplate(getProducerFactory());
     }
+
 
 }
 
